@@ -2,9 +2,11 @@
 # -*- coding: utf-8 -*-
 from BeautifulSoup import BeautifulSoup
 from markdown import markdown
+
 from django.contrib.markup.templatetags.markup import restructuredtext
-from django_utils import clean_html
 from django.utils.html import strip_tags, urlize
+from django_utils import clean_html, clean_tiny_mce_prefix
+
 from bbcode import markup as bbcode_markup
 
 class Markup(object):
@@ -32,10 +34,12 @@ class Markup(object):
                 chunk = chunk.replaceWith(urlize(unicode(chunk), trim_url_limit=40))
         return unicode(soup)
     
-    def render(self, value, urlize=True, **kwargs):
+    def render(self, value, urlize=True, fix_tinymce=True, **kwargs):
         value = self.do_render(value)
         if urlize and self.allow_urlize:
             value = self.urlize(value)
+        if fix_tinymce:
+            value = clean_tiny_mce_prefix(value)    # TinyMCE bug
         return value
         
     def do_render(self, value, **kwargs):
