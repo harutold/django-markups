@@ -45,11 +45,11 @@ class Markup(object):
     def do_render(self, value, **kwargs):
         return value
 
-class Markdown(object):
+class Markdown(Markup):
     safe = True
 
     def do_render(self, value, urlize=True, **kwargs):
-        return markdown(value)
+        return markdown(value, safe_mode='escape')
 
 class RawHTML(Markup):
     pass
