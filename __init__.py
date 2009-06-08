@@ -13,4 +13,4 @@ def all_markups():
     return [x[0] for x in Library.MARKUPS.items()]
     
 def get_markup_num(markup):
-    all_markups().index('markup')
+    all_markups().index(markup)
