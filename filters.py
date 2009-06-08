@@ -85,12 +85,19 @@ class Library(object):
         'bbcode':   BBCode(),
         'rest':     Restructured(),
     }
+    clean = True
     
     @classmethod
+    def dirty(cls):
+        cls.clean = False
+        
+    @classmethod
     def register(cls, name, markup_cls):
+        # All markups should be registered before usage
+        # TODO: new Error classes
         if isinstance(markup_cl):
-            cls[name] = markup_cls
-        else:
-            # TODO: new Error
             raise Exception(u'Not Allowed class')
+        if not cls.clean:
+            raise Exception(u'Registering classes after first usage')
+        cls[name] = markup_cls
 
