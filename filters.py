@@ -79,11 +79,11 @@ class Restructured(Markup):
 class Library(object):
     MARKUPS = {
         'markdown': Markdown(),
-        'rawhtml':  RawHTML(),
-        'safehtml': PlainText(),
-        'plain':    PlainText(),
-        'bbcode':   BBCode(),
-        'rest':     Restructured(),
+        'raw html': RawHTML(),
+        'safe html': SafeHTML(),
+        'plain text': PlainText(),
+        'bbcode': BBCode(),
+        'rest': Restructured(),
     }
     clean = True
     
