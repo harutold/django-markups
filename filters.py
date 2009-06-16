@@ -48,8 +48,15 @@ class Markup(object):
 class Markdown(Markup):
     safe = True
 
-    def do_render(self, value, urlize=True, **kwargs):
+    def do_render(self, value, **kwargs):
         return markdown(value, safe_mode='escape')
+
+class Textile(Markup):
+    safe = True
+
+    def do_render(self, value, **kwargs):
+        from django.contrib.markup.templatetags.markup import textile
+        return textile(value)
 
 class RawHTML(Markup):
     pass
@@ -87,6 +94,7 @@ class Library(object):
         'safe html': SafeHTML(),
         'plain text': PlainText(),
         'bbcode': BBCode(),
+        'textile': Textile(),
         'rest': Restructured(),
     }
     clean = True
